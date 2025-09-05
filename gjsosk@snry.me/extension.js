@@ -5,7 +5,6 @@ import GObject from 'gi://GObject';
 import St from 'gi://St';
 import Shell from 'gi://Shell';
 
-
 import * as EdgeDragAction from 'resource:///org/gnome/shell/ui/edgeDragAction.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
