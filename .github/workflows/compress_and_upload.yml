@@ -25,7 +25,7 @@ jobs:
       
     - name: Replace autorelease version name
       run: |
-        sed -i gjsosk@vishram1123.com/prefs.js -e 's|{{VERSION}}|${{ env.hash }}|g'
+        sed -i gjsosk@snry.me/prefs.js -e 's|{{VERSION}}|${{ env.hash }}|g'
     
     - name: Create Release
       id: create_release
@@ -39,8 +39,8 @@ jobs:
         prerelease: false
         body: |
           ## To install:
-          1. Download `gjsosk@vishram1123_[version].zip` (`main` for GNOME version >= 45, `pre-45` for GNOME verison <= 44)
-          2. Run `gnome-extensions install /path/to/gjsosk@vishram1123_[version].zip` (replace with appropriate path)
+          1. Download `gjsosk@sonroyaalmerol_[version].zip` (`main` for GNOME version >= 45, `pre-45` for GNOME verison <= 44)
+          2. Run `gnome-extensions install /path/to/gjsosk@sonroyaalmerol_[version].zip` (replace with appropriate path)
           3. Log out of GNOME and log back in. 
           4. Click on the keyboard button in the dash bar
 
@@ -48,7 +48,7 @@ jobs:
     
     - name: Compress directory (main)
       run: |
-        cd gjsosk@vishram1123.com && zip -r ../gjsosk@vishram1123_main.zip ./*
+        cd gjsosk@snry.me && zip -r ../gjsosk@sonroyaalmerol_main.zip ./*
 
     - name: Upload Release Asset (main)
       id: upload-release-asset-main
@@ -57,8 +57,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./gjsosk@vishram1123_main.zip
-        asset_name: gjsosk@vishram1123_main.zip
+        asset_path: ./gjsosk@sonroyaalmerol_main.zip
+        asset_name: gjsosk@sonroyaalmerol_main.zip
         asset_content_type: application/zip
 
     - name: Checkout pre-45 branch
@@ -68,15 +68,15 @@ jobs:
         
     - name: Compile schemas
       run: | 
-        cd gjsosk@vishram1123.com/schemas && glib-compile-schemas .
+        cd gjsosk@snry.me/schemas && glib-compile-schemas .
     
     - name: Replace autorelease version name
       run: |
-        sed -i gjsosk@vishram1123.com/prefs.js -e 's|{{VERSION}}|${{ env.hash }}|g'
+        sed -i gjsosk@snry.me/prefs.js -e 's|{{VERSION}}|${{ env.hash }}|g'
 
     - name: Compress directory (pre-45)
       run: |
-        cd gjsosk@vishram1123.com && zip -r ../gjsosk@vishram1123_pre-45.zip ./*
+        cd gjsosk@snry.me && zip -r ../gjsosk@sonroyaalmerol_pre-45.zip ./*
 
     - name: Upload Release Asset (pre-45)
       id: upload-release-asset-pre-45
@@ -85,6 +85,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./gjsosk@vishram1123_pre-45.zip
-        asset_name: gjsosk@vishram1123_pre-45.zip
+        asset_path: ./gjsosk@sonroyaalmerol_pre-45.zip
+        asset_name: gjsosk@sonroyaalmerol_pre-45.zip
         asset_content_type: application/zip

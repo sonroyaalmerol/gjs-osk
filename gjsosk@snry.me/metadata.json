@@ -1,6 +1,6 @@
 {
     "description": "A new Onscreen Keyboard built using GNOME JS",
-    "gettext-domain": "gjsosk@vishram1123.com",
+    "gettext-domain": "gjsosk@snry.me",
     "name": "GJS OSK",
     "settings-schema": "org.gnome.shell.extensions.gjsosk",
     "shell-version": [
@@ -9,7 +9,7 @@
         "47",
         "48"
     ],
-    "url": "https://github.com/Vishram1123/gjs-osk",
-    "uuid": "gjsosk@vishram1123.com",
+    "url": "https://github.com/sonroyaalmerol/gjs-osk",
+    "uuid": "gjsosk@snry.me",
     "version": 100000
 }

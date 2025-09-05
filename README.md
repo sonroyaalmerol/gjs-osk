@@ -1,5 +1,5 @@
 # [GJS OSK](https://extensions.gnome.org/extension/5949/gjs-osk/)
-A (marginally) better on screen keyboard for GNOME 45+ (go to the [pre-45 branch](https://github.com/Vishram1123/gjs-osk/tree/pre-45) for compatibility from gnome 42-44)
+A (marginally) better on screen keyboard for GNOME 45+ (go to the [pre-45 branch](https://github.com/sonroyaalmerol/gjs-osk/tree/pre-45) for compatibility from gnome 42-44)
 ## Advantages over the default OSK:
 -	Function, modifier, tab, and arrow key support
 -	Ability to move around the screen
@@ -17,9 +17,9 @@ A (marginally) better on screen keyboard for GNOME 45+ (go to the [pre-45 branch
 2. Confirming that you have Chrome GNOME shell installed on your computer and your browser's GNOME Shell Integration plugin
 3. Click Install, and accept the prompt
 ## Install from Source
-1. [Head to the releases in the sidebar](https://github.com/Vishram1123/gjs-osk/releases/latest)
-2. Download `gjsosk@vishram1123_[version].zip` (`main` for GNOME version >= 45, `pre-45` for GNOME verison <= 44)
-3. Run `gnome-extensions install /path/to/gjsosk@vishram1123_[version].zip` (replace with appropriate path)
+1. [Head to the releases in the sidebar](https://github.com/sonroyaalmerol/gjs-osk/releases/latest)
+2. Download `gjsosk@sonroyaalmerol_[version].zip` (`main` for GNOME version >= 45, `pre-45` for GNOME verison <= 44)
+3. Run `gnome-extensions install /path/to/gjsosk@sonroyaalmerol_[version].zip` (replace with appropriate path)
 4. Log out of GNOME and log back in. 
 5. Click on the keyboard button in the dash bar
 ## Usage
@@ -37,7 +37,7 @@ A (marginally) better on screen keyboard for GNOME 45+ (go to the [pre-45 branch
 ## Help
 - If you find any bugs, or if you have any suggestions, please open an issue or submit a pull request. Thanks!
 ### Keyboard Layouts
-- As of recently, all keyboard layouts and variants (available through localectl) have been added to GJS-OSK. Please report on the state of keyboard layouts as correct/incorrect in issue [#48](https://github.com/Vishram1123/gjs-osk/issues/48), and I will try to fix them promptly.
+- As of recently, all keyboard layouts and variants (available through localectl) have been added to GJS-OSK. Please report on the state of keyboard layouts as correct/incorrect in issue [#48](https://github.com/sonroyaalmerol/gjs-osk/issues/48), and I will try to fix them promptly.
   - To generate a single keyboard layout, install `xkbcommon` through `pip` and run `genKeyMap.py` with `layout+variant` as the argument (`pip install xkbcommon` then `python genKeyMap.py de+dvorak` for example)
 
 **Help in this area is greatly appreciated!**
