@@ -31,7 +31,7 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
       with:
         tag_name: ${{ env.hash }}
         release_name: Autorelease ${{ env.hash }}
@@ -54,7 +54,7 @@ jobs:
       id: upload-release-asset-main
       uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./gjsosk@sonroyaalmerol_main.zip
@@ -82,7 +82,7 @@ jobs:
       id: upload-release-asset-pre-45
       uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./gjsosk@sonroyaalmerol_pre-45.zip
