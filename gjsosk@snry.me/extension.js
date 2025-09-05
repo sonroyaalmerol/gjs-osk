@@ -158,6 +158,24 @@ export default class GjsOskExtension extends Extension {
     }
   }
 
+  _hookToggles() {
+    if (this._indicator && !this._indicatorHooked) {
+      this._indicator.connect('button-press-event', () => this._toggleKeyboard());
+      this._indicator.connect('touch-event', (_actor, event) => {
+        if (event.type() === Clutter.EventType.TOUCH_END) this._toggleKeyboard();
+      });
+      this._indicatorHooked = true;
+    }
+
+    if (this.openBit && !this.openFromCommandHandler) {
+      this.openFromCommandHandler = this.openBit.connect('changed', () => {
+        if (!this.Keyboard) return; // guard
+        this.openBit.set_boolean('opened', false);
+        this._toggleKeyboard();
+      });
+    }
+  }
+
   enable() {
     // Load settings
     this.settings = this.getSettings();
@@ -184,6 +202,7 @@ export default class GjsOskExtension extends Extension {
 
     // Panel indicator (create once; reuse later)
     this._indicator = null;
+    this._indicatorHooked = false;
     if (this.settings.get_boolean('indicator-enabled')) {
       this._indicator = new PanelMenu.Button(0.0, 'GJS OSK Indicator', false);
       const icon = new St.Icon({
@@ -191,10 +210,6 @@ export default class GjsOskExtension extends Extension {
         style_class: 'system-status-icon',
       });
       this._indicator.add_child(icon);
-      this._indicator.connect('button-press-event', () => this._toggleKeyboard());
-      this._indicator.connect('touch-event', (_actor, event) => {
-        if (event.type() === Clutter.EventType.TOUCH_END) this._toggleKeyboard();
-      });
       Main.panel.addToStatusArea('GJS OSK Indicator', this._indicator);
     }
 
@@ -278,7 +293,6 @@ export default class GjsOskExtension extends Extension {
       this.Keyboard = new Keyboard(this.settings, this);
       this.Keyboard.refresh = () => this._applySettings();
 
-      // Indicator visibility reuse
       if (this._indicator) {
         this._indicator.visible = this.settings.get_boolean('indicator-enabled');
       } else if (this.settings.get_boolean('indicator-enabled')) {
@@ -288,12 +302,11 @@ export default class GjsOskExtension extends Extension {
           style_class: 'system-status-icon',
         });
         this._indicator.add_child(icon);
-        this._indicator.connect('button-press-event', () => this._toggleKeyboard());
-        this._indicator.connect('touch-event', (_actor, event) => {
-          if (event.type() === Clutter.EventType.TOUCH_END) this._toggleKeyboard();
-        });
         Main.panel.addToStatusArea('GJS OSK Indicator', this._indicator);
+        this._indicatorHooked = false; // new actor; allow re-hook
       }
+
+      this._hookToggles();
 
       if (wasOpen && this.Keyboard) this._toggleKeyboard(true);
     };
@@ -324,7 +337,11 @@ export default class GjsOskExtension extends Extension {
     });
 
     // Create initial UI
-    ensureKeycodesReady().then(() => buildKeyboard());
+    ensureKeycodesReady().then(() => {
+      buildKeyboard();
+      this._hookToggles();        // attach handlers now that Keyboard exists
+      this._connectFocusSignals(); // connect focus after build
+    });
 
     // Focus signals (no polling)
     this._focusConn = 0;
@@ -396,6 +413,7 @@ export default class GjsOskExtension extends Extension {
       this._indicator.destroy();
       this._indicator = null;
     }
+    this._indicatorHooked = false;
 
     // Keyboard
     if (this.Keyboard) {
