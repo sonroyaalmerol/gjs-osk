@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - pre-45
     paths-ignore:
       - '/README.md'
 
@@ -61,11 +60,6 @@ jobs:
         asset_name: gjsosk@sonroyaalmerol_main.zip
         asset_content_type: application/zip
 
-    - name: Checkout pre-45 branch
-      uses: actions/checkout@v2
-      with:
-        ref: 'pre-45'
-        
     - name: Compile schemas
       run: | 
         cd gjsosk@snry.me/schemas && glib-compile-schemas .
@@ -73,18 +67,3 @@ jobs:
     - name: Replace autorelease version name
       run: |
         sed -i gjsosk@snry.me/prefs.js -e 's|{{VERSION}}|${{ env.hash }}|g'
-
-    - name: Compress directory (pre-45)
-      run: |
-        cd gjsosk@snry.me && zip -r ../gjsosk@sonroyaalmerol_pre-45.zip ./*
-
-    - name: Upload Release Asset (pre-45)
-      id: upload-release-asset-pre-45
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./gjsosk@sonroyaalmerol_pre-45.zip
-        asset_name: gjsosk@sonroyaalmerol_pre-45.zip
-        asset_content_type: application/zip
